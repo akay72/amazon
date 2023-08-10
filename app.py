@@ -27,7 +27,7 @@ def process_url(url):
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument('--profile-directory=Default')
         chrome_options.add_argument('--user-data-dir=~/.config/google-chrome')
-        chrome_options.binary_location = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+        chrome_options.binary_location = r"chrome.exe"
         driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install(),options=chrome_options))
         # driver = webdriver.Chrome(options=chrome_options)
         
