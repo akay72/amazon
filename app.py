@@ -25,7 +25,7 @@ def process_url(url):
         options.add_argument("--disable-dev-shm-usage")
         
         # Specify chromedriver path here
-        driver_path = 'chromedriver' # Change this to your path
+        driver_path = 'chromedriver.exe' # Change this to your path
         driver = webdriver.Chrome(executable_path=driver_path, options=options)
         
         
