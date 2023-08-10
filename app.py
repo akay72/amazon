@@ -24,7 +24,10 @@ def process_url(url):
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
         
-        driver = webdriver.Chrome(options=options)
+        # Specify chromedriver path here
+        driver_path = r'chromedriver.exe' # Change this to your path
+        driver = webdriver.Chrome(executable_path=driver_path, options=options)
+        
         
         driver.get(url)
         time.sleep(10)
