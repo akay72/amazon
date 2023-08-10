@@ -26,7 +26,7 @@ def process_url(url):
         
         # Specify chromedriver path here
         driver_path = 'chromedriver.exe' # Change this to your path
-        driver = webdriver.Chrome(executable_path=driver_path, options=options)
+        driver = webdriver.Chrome( options=options)
         
         
         driver.get(url)
