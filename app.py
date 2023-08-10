@@ -33,7 +33,7 @@ def process_url(url):
         # Specify chromedriver path here
         
         
-        options.binary_location = r'C:\Program Files\Mozilla Firefox\firefox.exe'
+        options.binary_location = r"C:\Program Files\Mozilla Firefox\firefox.exe"
         driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
 
         
