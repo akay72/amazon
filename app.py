@@ -76,7 +76,7 @@ def main():
         """)
 
     elif page_selection == "CAPTCHA Solver":
-        st.image("https://www.streamlit.io/images/brand/streamlit-mark-color.svg", width=150)
+        
         st.write("""
         Enter the URL of the Amazon product page, and we'll handle the CAPTCHA for you!
         """)
