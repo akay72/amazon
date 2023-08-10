@@ -25,7 +25,7 @@ def process_url(url):
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--log-path=chromedriver.log")
 
-        driver = webdriver.Chrome(options=options)
+        driver = webdriver.Chrome()
         
         driver.get(url)
         time.sleep(10)
