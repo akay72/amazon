@@ -31,8 +31,11 @@ def process_url(url):
         options.add_argument("--disable-dev-shm-usage")
         
         # Specify chromedriver path here
-        driver_path = 'chromedriver.exe' # Change this to your path
         
+        
+        options.binary_location = r'C:\Program Files\Mozilla Firefox\firefox.exe'
+        driver = webdriver.Firefox(executable_path=r'geckodriver.exe', options=options)
+        driver.get('http://google.com/')
         driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
         
         
