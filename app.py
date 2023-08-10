@@ -13,7 +13,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
-
+from selenium.webdriver.firefox.options import Options
 # Set the layout to 'wide'
 st.set_page_config(layout="wide")
 
