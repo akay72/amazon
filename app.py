@@ -19,7 +19,7 @@ def solve_captcha(captcha_image_path):
 
 def process_url(url):
     try:
-       chrome_options = Options()
+        chrome_options = Options()
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--disable-gpu')
