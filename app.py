@@ -19,13 +19,16 @@ def solve_captcha(captcha_image_path):
 
 def process_url(url):
     try:
-        options = Options()
-        options.add_argument("--headless")
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-dev-shm-usage")
-        options.add_argument("--log-path=chromedriver.log")
+       chrome_options = Options()
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--disable-gpu')
+        chrome_options.add_argument('--disable-dev-shm-usage')
+        chrome_options.add_argument('--profile-directory=Default')
+        chrome_options.add_argument('--user-data-dir=~/.config/google-chrome')
 
-        driver = webdriver.Chrome()
+        driver = webdriver.Chrome(options=chrome_options)
+        
         
         driver.get(url)
         time.sleep(10)
