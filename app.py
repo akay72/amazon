@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 from twocaptcha import TwoCaptcha
 import requests
 from selenium.webdriver.chrome.options import Options
-import os  # Imported the os library
+import traceback
 
 # Set the layout to 'wide'
 st.set_page_config(layout="wide")
@@ -18,35 +18,40 @@ def solve_captcha(captcha_image_path):
     return result
 
 def process_url(url):
-    options = Options()
-    options.add_argument("--headless")
-    driver = webdriver.Chrome(options=options)
-    driver.get(url)
-    time.sleep(10)
-    html = driver.page_source
-    soup = BeautifulSoup(html, 'html.parser')
-    form = soup.find('form')
-    captcha_image = form.find('img')['src']
+    try:
+        options = Options()
+        options.add_argument("--headless")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+        
+        driver = webdriver.Chrome(options=options)
+        
+        driver.get(url)
+        time.sleep(10)
+        html = driver.page_source
+        soup = BeautifulSoup(html, 'html.parser')
+        form = soup.find('form')
+        captcha_image = form.find('img')['src']
 
-    response = requests.get(captcha_image)
-    captcha_image_path = 'captcha_image.jpg'
-    with open(captcha_image_path, 'wb') as fp:
-        fp.write(response.content)
+        response = requests.get(captcha_image)
+        captcha_image_path = 'captcha_image.jpg'
+        with open(captcha_image_path, 'wb') as fp:
+            fp.write(response.content)
 
-    captcha_solution = solve_captcha(captcha_image_path)
-
-    # Delete the CAPTCHA image
-    os.remove(captcha_image_path)
-
-    captcha_input_field = driver.find_element(By.XPATH,'//*[@id="captchacharacters"]')
-    captcha_input_field.send_keys(captcha_solution['code'])
-    time.sleep(5)
-    submit_button = driver.find_element(By.XPATH, "//button[@type='submit' and @class='a-button-text' and contains(text(), 'Continue shopping')]")
-    submit_button.click()
-    time.sleep(10)
-    page_html = driver.page_source
-    driver.quit()
-    return page_html
+        captcha_solution = solve_captcha(captcha_image_path)
+        captcha_input_field = driver.find_element(By.XPATH,'//*[@id="captchacharacters"]')
+        captcha_input_field.send_keys(captcha_solution['code'])
+        time.sleep(5)
+        submit_button = driver.find_element(By.XPATH, "//button[@type='submit' and @class='a-button-text' and contains(text(), 'Continue shopping')]")
+        submit_button.click()
+        time.sleep(10)
+        page_html = driver.page_source
+        driver.quit()
+        return page_html
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
+        st.text(traceback.format_exc())
+        return None
 
 def main():
     st.title('CAPTCHA Solver for Amazon')
@@ -71,7 +76,7 @@ def main():
         """)
 
     elif page_selection == "CAPTCHA Solver":
-       
+        st.image("https://www.streamlit.io/images/brand/streamlit-mark-color.svg", width=150)
         st.write("""
         Enter the URL of the Amazon product page, and we'll handle the CAPTCHA for you!
         """)
@@ -82,9 +87,8 @@ def main():
                 return
 
             with st.spinner('Processing...'):
-                try:
-                    page_html = process_url(url)
-
+                page_html = process_url(url)
+                if page_html:
                     st.download_button(
                         label="Download Page HTML",
                         data=page_html.encode('utf-8'),
@@ -92,8 +96,6 @@ def main():
                         mime='text/plain'
                     )
                     st.success('CAPTCHA Processed! Download the page content using the button above.')
-                except:
-                    st.error('Sorry, something went wrong. Please try again.')
 
 if __name__ == '__main__':
     main()
