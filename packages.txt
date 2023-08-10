@@ -1,1 +1,2 @@
 libglib2.0 libnss3 libgconf-2-4 libfontconfig1
+libx11-xcb1 libxcomposite1 libxi6 libpci-dev libxcursor1 libxdamage1 libxss1 libxtst6 libnss3 libcups2 libxrandr2 libasound2 libpangocairo-1.0-0 libatk1.0-0 libgtk-3-0
