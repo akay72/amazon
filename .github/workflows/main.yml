@@ -1,0 +1,27 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Chrome
+      uses: browser-actions/setup-chrome@latest
+      with:
+        chrome-version: 'latest'
+
+    - name: Setup ChromeDriver
+      uses: browser-actions/setup-chromedriver@latest
+      with:
+        chromedriver-version: 'latest'
+      env:
+        CHROMEWEBDRIVER: ${{ runner.tool_cache }}
+
+    - name: Run tests
+      run: |
+        # Your commands to run tests or other tasks
