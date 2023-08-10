@@ -35,8 +35,6 @@ def process_url(url):
         
         options.binary_location = r'C:\Program Files\Mozilla Firefox\firefox.exe'
         driver = webdriver.Firefox(executable_path=r'geckodriver.exe', options=options)
-        driver.get('http://google.com/')
-        driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
         
         
         driver.get(url)
