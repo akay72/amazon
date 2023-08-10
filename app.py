@@ -7,7 +7,8 @@ from twocaptcha import TwoCaptcha
 import requests
 from selenium.webdriver.chrome.options import Options
 import traceback
-
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
 # Set the layout to 'wide'
 st.set_page_config(layout="wide")
 
@@ -26,8 +27,8 @@ def process_url(url):
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument('--profile-directory=Default')
         chrome_options.add_argument('--user-data-dir=~/.config/google-chrome')
-
-        driver = webdriver.Chrome(options=chrome_options)
+        driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install(),options=chrome_options))
+        # driver = webdriver.Chrome(options=chrome_options)
         
         
         driver.get(url)
