@@ -7,6 +7,10 @@ from twocaptcha import TwoCaptcha
 import requests
 from selenium.webdriver.chrome.options import Options
 import traceback
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
+
 
 # Set the layout to 'wide'
 st.set_page_config(layout="wide")
@@ -26,7 +30,7 @@ def process_url(url):
         
         # Specify chromedriver path here
         driver_path = 'chromedriver.exe' # Change this to your path
-        driver = webdriver.Chrome( options=options)
+        driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
         
         
         driver.get(url)
